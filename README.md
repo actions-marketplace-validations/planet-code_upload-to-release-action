@@ -12,9 +12,9 @@ This Github Action to upload an asset to a release.
 
 **REQUIRED** The path to the asset to upload. Default `empty`.
 
-<!-- ### `asset-content-type`
+### `asset-name`
 
-**REQUIRED** The content-type of the asset you want to upload. See the (supported Media Types)[https://www.iana.org/assignments/media-types/media-types.xhtml] for more information. Default `"application/zip"`. -->
+The name of the asset, this will be prefixed with the release name. Default `"artifact.zip"`
 
 ## Example usage
 
@@ -34,5 +34,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           asset-path: "./artifact.zip"
-          asset-content-type: "application/zip"
 ```

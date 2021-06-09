@@ -8,10 +8,10 @@ inputs:
   asset-path: # Asset path
     description: The path to the asset to upload"
     required: true
-  # asset-content-type:
-  #   description: "The content-type of the asset you want to upload."
-  #   required: true
-  #   default: "application/zip"
+  asset-name:
+    description: "The name of the asset"
+    required: true
+    default: "artifact.zip"
 runs:
   using: "node12"
   main: "dist/index.js"
