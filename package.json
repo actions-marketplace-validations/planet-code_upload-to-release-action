@@ -1,0 +1,26 @@
+{
+  "name": "upload-to-release-action",
+  "version": "1.0.0",
+  "description": "A Github Action to upload an asset to a release",
+  "main": "index.js",
+  "scripts": {
+    "build": "ncc build index.js --license licenses.txt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/planet-code/upload-to-release-action.git"
+  },
+  "keywords": [
+    "github",
+    "actions",
+    "release",
+    "asset",
+    "automation"
+  ],
+  "author": "Ellen Langleaar",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.3.0",
+    "@actions/github": "^5.0.0"
+  }
+}

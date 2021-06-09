@@ -1,0 +1,17 @@
+name: "Upload to release"
+description: "Upload an asset to a release"
+author: "Planet Code"
+inputs:
+  token: # Github token
+    description: "The github token"
+    required: true
+  release-id: # Release id
+    description: "The release id to upload to"
+    required: false
+  use-last-release: # Use the last release
+    description: "Use the last release to upload to"
+    required: false
+    default: true
+runs:
+  using: "node12"
+  main: "dist/index.js"
