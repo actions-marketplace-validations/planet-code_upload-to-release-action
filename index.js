@@ -31,7 +31,7 @@ function validateInputs() {
     );
 }
 
-async function getReleaseId() {
+async function getReleaseId(octokit) {
   const releaseId = core.getInput("release-id");
   const useLastRelease = core.getBooleanInput("use-last-release");
 
