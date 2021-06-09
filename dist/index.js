@@ -6151,6 +6151,7 @@ var __webpack_exports__ = {};
 (() => {
 const core = __nccwpck_require__(21);
 const github = __nccwpck_require__(366);
+const fs = __nccwpck_require__(747);
 
 run();
 
@@ -6166,57 +6167,51 @@ async function action() {
   const githubToken = core.getInput("token");
   const octokit = github.getOctokit(githubToken);
 
-  validateInputs();
-
-  const releaseId = await getReleaseId(octokit);
-  //await addAsset(octokit);
+  const release = await getRelease(octokit);
+  await addAsset(release, octokit);
 }
 
-function validateInputs() {
-  const releaseId = core.getInput("release-id");
-  const useLastRelease = core.getBooleanInput("use-last-release");
-
-  if (releaseId.length === 0 && !useLastRelease)
-    throw new Error(
-      "Either release-id should be set or use-last-release should be true"
-    );
-}
-
-async function getReleaseId(octokit) {
-  const releaseId = core.getInput("release-id");
-  const useLastRelease = core.getBooleanInput("use-last-release");
-
-  if (!useLastRelease) return releaseId;
-
+async function getRelease(octokit) {
   const releases = await octokit.rest.repos.listReleases({
     ...github.context.repo,
   });
 
-  console.log(`releases ${JSON.stringify(releases, undefined, 2)}`);
+  console.log(`releases ${JSON.stringify(releases, undefined, 2)}`); // REMOVE THIS
+
+  return releases.data[0];
 }
 
-// async function createRelease(newTag, octokit) {
-//   const showChangelog = core.getBooleanInput("show-changelog");
-//   let body = " ";
+async function addAsset(release, octokit) {
+  const assetPath = core.getInput("asset-path");
+  //const assetContentType = core.getInput("asset-content-type");
+  //const uploadUrl = release.upload_url;
 
-//   if (showChangelog) {
-//     const listOfPrs =
-//       await octokit.rest.repos.listPullRequestsAssociatedWithCommit({
-//         ...github.context.repo,
-//         commit_sha: github.context.payload.head_commit.id,
-//       });
-//     const firstPr = listOfPrs.data[0];
-//     body = `# ${firstPr.title}\n\n${firstPr.body}`;
-//   }
+  // // Determine content-length for header to upload asset
+  // const contentLength = (filePath) => fs.statSync(filePath).size;
 
-//   console.log("Creating release");
-//   await octokit.rest.repos.createRelease({
-//     ...github.context.repo,
-//     tag_name: newTag,
-//     name: newTag,
-//     body: body,
-//   });
-// }
+  // // Setup headers for API call, see Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-upload-release-asset for more information
+  // const headers = {
+  //   "content-type": assetContentType,
+  //   "content-length": contentLength(assetPath),
+  // };
+
+  // // Upload a release asset
+  // // API Documentation: https://developer.github.com/v3/repos/releases/#upload-a-release-asset
+  // // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-upload-release-asset
+  // const uploadAssetResponse = await github.repos.uploadReleaseAsset({
+  //   url: uploadUrl,
+  //   headers,
+  //   name: assetName,
+  //   file: fs.readFileSync(assetPath),
+  // });
+
+  await octokit.rest.repos.uploadReleaseAsset({
+    ...github.context.repo,
+    release_id: release.id,
+    name: `${release.name}-asset`,
+    data: fs.readFileSync(assetPath),
+  });
+}
 
 })();
 

@@ -8,13 +8,13 @@ This Github Action to upload an asset to a release.
 
 **REQUIRED** A Github token, usually ${{ github.token }}.
 
-### `release-id`
+### `asset-path`
 
-The release id to upload to. Default `empty`.
+**REQUIRED** The path to the asset to upload. Default `empty`.
 
-### `use-last-release`
+<!-- ### `asset-content-type`
 
-Use the last release to upload to. Default `true`.
+**REQUIRED** The content-type of the asset you want to upload. See the (supported Media Types)[https://www.iana.org/assignments/media-types/media-types.xhtml] for more information. Default `"application/zip"`. -->
 
 ## Example usage
 
@@ -33,4 +33,6 @@ jobs:
       - uses: planet-code/upload-to-release-action@1.0.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          asset-path: "./artifact.zip"
+          asset-content-type: "application/zip"
 ```
