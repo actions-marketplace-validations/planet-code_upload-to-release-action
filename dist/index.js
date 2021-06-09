@@ -6176,7 +6176,7 @@ async function getRelease(octokit) {
     ...github.context.repo,
   });
 
-  console.log(`releases ${JSON.stringify(releases, undefined, 2)}`); // REMOVE THIS
+  console.log(`${JSON.stringify(releases, undefined, 2)}`); // REMOVE THIS
 
   return releases.data[0];
 }
@@ -6205,11 +6205,13 @@ async function addAsset(release, octokit) {
   //   file: fs.readFileSync(assetPath),
   // });
 
+  console.log(JSON.stringify(fs.readdirSync("./"), undefined, 2));
+
   await octokit.rest.repos.uploadReleaseAsset({
     ...github.context.repo,
     release_id: release.id,
     name: `${release.name}-asset`,
-    data: fs.readFileSync(assetPath),
+    data: null, //fs.readFileSync(assetPath),
   });
 }
 
