@@ -1,4 +1,4 @@
-name: "Upload to release"
+name: "Upload to last release"
 description: "Upload an asset to the last release"
 author: "Planet Code"
 inputs:
