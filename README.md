@@ -1,16 +1,6 @@
-# Release And Tag After Merge Action
+# Upload to release Action
 
-This Github Action tags and releases after a pull request is merged.
-
-```
-"master"-------------M----------
-                    /
-"release/1.0.0"----/
-```
-
-## IMPORTANT!
-
-Needs the merge message to stay default (Example: _"Merge pull request #1 from some-repo"_)
+This Github Action to upload an asset to a release.
 
 ## Inputs
 
@@ -18,24 +8,18 @@ Needs the merge message to stay default (Example: _"Merge pull request #1 from s
 
 **REQUIRED** A Github token, usually ${{ github.token }}.
 
-### `release-branch-prefix`
+### `release-id`
 
-The prefix of the release branch. Default `release/`. (example branch name: release/1.0.0)
+The release id to upload to. Default `empty`.
 
-### `show-changelog`
+### `use-last-release`
 
-To show the title and body of the pull request as the changelog (body) of the release. Default `true`.
-
-## Outputs
-
-### `tag`
-
-The tag name
+Use the last release to upload to. Default `true`.
 
 ## Example usage
 
 ```yaml
-name: Release tag
+name: Upload asset
 
 on:
   push:
@@ -46,5 +30,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: planet-code/release-tag-action@1.0.0
+      - uses: planet-code/upload-to-release-action@1.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 ```
