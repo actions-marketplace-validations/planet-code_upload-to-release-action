@@ -2,10 +2,10 @@ name: "Upload to release"
 description: "Upload an asset to the last release"
 author: "Planet Code"
 inputs:
-  token: # Github token
+  token:
     description: "The Github token"
     required: true
-  asset-path: # Asset path
+  asset-path:
     description: The path to the asset to upload"
     required: true
   asset-name:

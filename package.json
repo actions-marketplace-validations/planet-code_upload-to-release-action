@@ -1,7 +1,7 @@
 {
   "name": "upload-to-release-action",
   "version": "1.0.0",
-  "description": "A Github Action to upload an asset to a release",
+  "description": "A Github Action to upload an asset to the last release",
   "main": "index.js",
   "scripts": {
     "build": "ncc build index.js --license licenses.txt"
