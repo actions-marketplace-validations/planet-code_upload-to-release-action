@@ -1,6 +1,6 @@
 # Upload to release Action
 
-This Github Action to upload an asset to a release.
+This Github Action to upload an asset to the last release.
 
 ## Inputs
 
