@@ -54,12 +54,14 @@ async function addAsset(release, octokit) {
   //   file: fs.readFileSync(assetPath),
   // });
 
-  console.log(JSON.stringify(fs.readdirSync("./"), undefined, 2));
+  console.log(`${JSON.stringify(fs.readdirSync("./"), undefined, 2)}`);
+  console.log(`${JSON.stringify(github.context, undefined, 2)}`);
+  console.log(`${JSON.stringify(github, undefined, 2)}`);
 
-  await octokit.rest.repos.uploadReleaseAsset({
-    ...github.context.repo,
-    release_id: release.id,
-    name: `${release.name}-asset`,
-    data: null, //fs.readFileSync(assetPath),
-  });
+  // await octokit.rest.repos.uploadReleaseAsset({
+  //   ...github.context.repo,
+  //   release_id: release.id,
+  //   name: `${release.name}-asset`,
+  //   data: null, //fs.readFileSync(assetPath),
+  // });
 }
