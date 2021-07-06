@@ -6,7 +6,7 @@ This Github Action to upload an asset to the last release.
 
 ### `token`
 
-**REQUIRED** A Github token, usually ${{ github.token }}.
+**REQUIRED** A Github token, usually ${{ secrets.GITHUB_TOKEN }}.
 
 ### `asset-path`
 
